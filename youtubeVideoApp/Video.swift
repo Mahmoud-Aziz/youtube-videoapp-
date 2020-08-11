@@ -1,14 +1,14 @@
 //
 //  Video.swift
-//  youtubeVideoApp
+//  youtubeApp-CWC
 //
-//  Created by Mahmoud Aziz on 8/10/20.
-//  Copyright © 2020 Mahmoud Aziz. All rights reserved.
+//  Created by Justin Huang on 6/9/20.
+//  Copyright © 2020 Justin Huang. All rights reserved.
 //
 
 import Foundation
 
-struct video : Decodable {
+struct Video : Decodable {
     
     var videoId = ""
     var title = ""
@@ -22,8 +22,6 @@ struct video : Decodable {
         case thumbnails
         case high
         case resourceId
-        
-        
         
         case published = "publishedAt"
         case title
@@ -39,25 +37,26 @@ struct video : Decodable {
         
         let snippetContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .snippet)
         
-        //parse the title
+        // Parse title
         self.title = try snippetContainer.decode(String.self, forKey: .title)
         
-        //parse the description
+        // Parse description
         self.description = try snippetContainer.decode(String.self, forKey: .description)
         
-        //parse the publish date
+        // Parse the publish date
         self.published = try snippetContainer.decode(Date.self, forKey: .published)
         
-        //parse thumbnails
+        // Parse thumbnails
         let thumbnailContainer = try snippetContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .thumbnails)
         
         let highContainer = try thumbnailContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .high)
         
-        self.thumbnail = try highContainer.decode(String.self, forKey: .thumbnails)
+        self.thumbnail = try highContainer.decode(String.self, forKey: .thumbnail)
         
-        //parse the video ID
+        // Parse Video ID
         let resourceIdContainer = try snippetContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .resourceId)
         
         self.videoId = try resourceIdContainer.decode(String.self, forKey: .videoId)
     }
 }
+

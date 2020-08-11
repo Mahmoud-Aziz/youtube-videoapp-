@@ -6,22 +6,19 @@
 //  Copyright © 2020 Mahmoud Aziz. All rights reserved.
 //
 
+
 import Foundation
 
-struct Response: Decodable {
+struct Response : Decodable {
+    var items:[Video]?
     
-    var items:[video]?
-    
-    enum CodingKeys: String, CodingKey {
-        
+    enum CodingKeys:String, CodingKey {
         case items
-        
     }
     
-    init (from decoder: Decoder) throws {
-        
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.items = try container.decode([video].self, forKey: .items)
+        self.items = try container.decode([Video].self, forKey: .items)
     }
 }
